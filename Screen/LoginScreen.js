@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import HomeApi from "../service/Home.api";
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -27,7 +28,7 @@ const LoginScreen = ({ navigation }) => {
 
   const passwordInputRef = createRef();
 
-  const handleSubmitPress = () => {
+  const handleSubmitPress = async () => {
     setErrortext('');
     if (!userEmail) {
       alert('Please fill Email');
@@ -38,43 +39,18 @@ const LoginScreen = ({ navigation }) => {
       return;
     }
     setLoading(true);
-    let dataToSend = { user_email: userEmail, user_password: userPassword };
-    let formBody = [];
-    for (let key in dataToSend) {
-      let encodedKey = encodeURIComponent(key);
-      let encodedValue = encodeURIComponent(dataToSend[key]);
-      formBody.push(encodedKey + '=' + encodedValue);
+    let dataToSend = { user_email: userEmail, user_password: userPassword }
+    //Hide Loader
+    setLoading(false)
+    let response = await HomeApi.postAsync(dataToSend)
+    if (response.Status) {
+      AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
+      console.log(responseJson.data[0].user_id);
+      navigation.replace('DrawerNavigationRoutes');
+    } else {
+      setErrortext('Please check your email id or password');
+      console.log('Please check your email id or password');
     }
-    formBody = formBody.join('&');
-
-    fetch('https://aboutreact.herokuapp.com/login.php', {
-      method: 'POST',
-      body: formBody,
-      headers: {
-        //Header Defination
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        //Hide Loader
-        setLoading(false);
-        console.log(responseJson);
-        // If server response message same as Data Matched
-        if (responseJson.status == 0) {
-          AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
-          console.log(responseJson.data[0].user_id);
-          navigation.replace('DrawerNavigationRoutes');
-        } else {
-          setErrortext('Please check your email id or password');
-          console.log('Please check your email id or password');
-        }
-      })
-      .catch((error) => {
-        //Hide Loader
-        setLoading(false);
-        console.error(error);
-      });
   };
 
   return (
@@ -104,7 +80,7 @@ const LoginScreen = ({ navigation }) => {
               <TextInput
                 style={styles.inputStyle}
                 onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-                placeholder="Enter Email" //dummy@abc.com
+                placeholder="Enter CodeId" //dummy@abc.com
                 placeholderTextColor="#8b9cb5"
                 autoCapitalize="none"
                 keyboardType="email-address"

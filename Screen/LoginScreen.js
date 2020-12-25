@@ -62,8 +62,8 @@ const LoginScreen = ({ navigation }) => {
         console.log(responseJson);
         // If server response message same as Data Matched
         if (responseJson.status == 0) {
-          //AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
-          //console.log(responseJson.data[0].user_id);
+          AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
+          console.log(responseJson.data[0].user_id);
           navigation.replace('DrawerNavigationRoutes');
         } else {
           setErrortext('Please check your email id or password');

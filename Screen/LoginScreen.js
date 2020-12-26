@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
       setLoading(false)
         var object = JSON.parse(result)
         if (object.Status) {
-          AsyncStorage.multiSet(['CodeId','Tocken'],[CodeId,object.Tocken]);
+          //AsyncStorage.multiSet(['CodeId','Tocken'],[CodeId,object.Tocken]);
           navigation.replace('DrawerNavigationRoutes');
         } else {
           setErrortext('Please check your email id or password');

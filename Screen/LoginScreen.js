@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import HomeApi from "../service/Home.api";
+import RadioButtonProject from "./PlusIn/RadioButtonProject";
 import { _ } from 'lodash';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -23,6 +23,7 @@ import Loader from './Components/Loader';
 
 const LoginScreen = ({ navigation }) => {
   const [CodeId, setCodeId] = useState('');
+  const [value, setValue] = useState(0);
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
@@ -61,7 +62,7 @@ const LoginScreen = ({ navigation }) => {
         var object = JSON.parse(result)
         if (object.Status) {
           //AsyncStorage.multiSet(['CodeId','Tocken'],[CodeId,object.Tocken]);
-          navigation.replace('DrawerNavigationRoutes');
+          navigation.replace('DrawerNavigationRoutes',{'CodeId':CodeId,'Connect':value});
         } else {
           setErrortext('Please check your email id or password');
           console.log('Please check your email id or password');
@@ -93,6 +94,9 @@ const LoginScreen = ({ navigation }) => {
                   margin: 30,
                 }}
               />
+            </View>
+            <View style={{alignItems: 'center'}}>
+              <RadioButtonProject value = {value} setValue = {(value) =>setValue(value)}/>
             </View>
             <View style={styles.SectionStyle}>
               <TextInput

@@ -15,7 +15,7 @@ let HomeApi = {
     };
 
     await fetch(url, requestOptions)
-      .then(response => response.json())
+      .then(response => response.text())
       .then(result => {
         return result;
       }

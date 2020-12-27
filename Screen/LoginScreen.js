@@ -13,6 +13,7 @@ import {
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 import RadioButtonProject from "./PlusIn/RadioButtonProject";
 import { _ } from 'lodash';
@@ -69,7 +70,11 @@ const LoginScreen = ({ navigation }) => {
         }
       }
       )
-      .catch(error => console.log('error', error));
+      .catch(error => {
+        console.log('error', error)
+        setLoading(false)
+        Alert.alert("can't connected to device!");
+      });
   };
 
   return (

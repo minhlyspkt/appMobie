@@ -17,7 +17,7 @@ import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const homeScreenStack = ({navigation}) => {
+const homeScreenStack = ({route,navigation}) => {
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
@@ -36,6 +36,7 @@ const homeScreenStack = ({navigation}) => {
             fontWeight: 'bold', //Set Header text style
           },
         }}
+        initialParams={{...route.params}}
       />
     </Stack.Navigator>
   );
@@ -85,6 +86,7 @@ const DrawerNavigatorRoutes = (props) => {
         name="homeScreenStack"
         options={{drawerLabel: 'Home Screen'}}
         component={homeScreenStack}
+        initialParams={{...props.route.params}}
       />
       <Drawer.Screen
         name="settingScreenStack"

@@ -14,6 +14,7 @@ import SplashScreen from './Screen/SplashScreen';
 import LoginScreen from './Screen/LoginScreen';
 import RegisterScreen from './Screen/RegisterScreen';
 import DrawerNavigationRoutes from './Screen/DrawerNavigationRoutes';
+import Test from "./Test";
 
 const Stack = createStackNavigator();
 
@@ -47,7 +48,7 @@ const Auth = () => {
 /* Switch Navigator for those screens which needs to be switched only once
   and we don't want to switch back once we switch from them to the next one */
 const App = () => {
-  return (
+  return ( //<Test/>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">
         {/* SplashScreen which will come once for 5 Seconds */}

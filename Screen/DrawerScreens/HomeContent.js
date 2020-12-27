@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { _ } from 'lodash';
 import React from 'react';
-import { render } from 'react-dom';
+import AsyncStorage from '@react-native-community/async-storage';
 import { StyleSheet, Text, View, Button, Alert, Image } from 'react-native';
 import lightOff from '../../Image/lightOff.jpg'
 import lightOn from '../../Image/lightOn.jpg'
@@ -20,7 +20,8 @@ export default class HomeContent extends React.PureComponent {
   componentDidMount() {
     this.setState({ data: this.props.data })
   }
-  setStatus(item) {
+  
+   setStatus(item) {
     let otherProps = _.omit(item, ['setStatus'])
     let StatusRequest = otherProps.Status == "0" ? "1" : "0"
     var myHeaders = new Headers();
@@ -36,7 +37,7 @@ export default class HomeContent extends React.PureComponent {
       redirect: 'follow'
     };
 
-    fetch("http://192.168.1.184:147/131220-2-4-33-L3", requestOptions)
+   fetch("http://192.168.1.184:147/131220-2-4-33-L3", requestOptions)
       .then(response => response.text())
       .then(result => 
         {

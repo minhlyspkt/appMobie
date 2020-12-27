@@ -4,18 +4,30 @@ import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import HomeContent from "./HomeContent";
 import HomeModel from "../Model/HomeModel";
-
+import AsyncStorage from '@react-native-community/async-storage';
 export default class HomeScreen extends React.Component {
-  constructor({ route, navigation, props }) {
-    super(props)
+  constructor({ router, navigation, props }) {
+    super(router, navigation, props)
     this.state = {
       data: [],
       isloading: false
     }
     this.getData = this.getData.bind(this)
+    this.updateStorage = this.updateStorage.bind(this)
   }
   componentDidMount() {
     this.getData()
+  }
+  componentDidUpdate() {
+    this.updateStorage()
+  }
+  updateStorage() {
+    // let dataSrorage = JSON.stringify(this.state.data)
+    //  AsyncStorage.setItem(["Data", dataSrorage], (error) => {
+    //   if (error != null) {
+    //     console.log(error)
+    //   }
+    // })
   }
   async getData() {
     var myHeaders = new Headers()
@@ -23,7 +35,7 @@ export default class HomeScreen extends React.Component {
     myHeaders.append("Content-Type", "application/json")
 
     var raw = JSON.stringify({ "Tocken": "eyJ0eXAiOiJKV1QiLCJhbGciOihVUyAtIFByaW" })
-
+    var url = HomeModel.GetUrl(this.router)
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -41,7 +53,7 @@ export default class HomeScreen extends React.Component {
           for (let i = 0; i < 10; i++) {
             dataTest[i] = { key: i, Status: "0", Name: "Device " + (i), GPIO: i }
           }
-          this.setState({ data: dataTest, isloading: true })
+          this.setState({ data: dataModel, isloading: true })
         }
       }
       )
@@ -69,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollView: {
-    backgroundColor: 'pink',
+    backgroundColor: '#fff',
     marginHorizontal: 10,
   }
 });

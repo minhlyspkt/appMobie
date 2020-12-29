@@ -39,11 +39,11 @@ export default class Test extends React.Component {
               });
           }
       })
-      // await AsyncStorage.clear((error) => {
-      //   if (error !== null) {
-      //     console.log(error)
-      //   }
-      // })
+      await AsyncStorage.clear((error) => {
+        if (error !== null) {
+          console.log(error)
+        }
+      })
     } catch (error) {
       //Alert.alert(error)
     }

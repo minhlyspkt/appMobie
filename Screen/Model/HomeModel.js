@@ -46,8 +46,8 @@ let HomeModel = {
         })
         return result
     },
-    GetUrl() {
-
+    GeDataSetting() {
+        
     }
 
 }

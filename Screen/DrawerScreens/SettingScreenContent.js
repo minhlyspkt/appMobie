@@ -39,7 +39,7 @@ export default class SettingScreenContent extends React.Component {
             style={styles.inputStyle}
             onChangeText={(UserName) => setUserName(UserName)}
             underlineColorAndroid="#f000"
-            placeholder="Enter Name"
+            placeholder={this.props.data.Name}
             placeholderTextColor="#8b9cb5"
             autoCapitalize="sentences"
             returnKeyType="next"

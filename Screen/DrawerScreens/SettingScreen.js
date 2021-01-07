@@ -1,6 +1,7 @@
 
 import { _ } from 'lodash';
 import React,{ createRef} from 'react';
+import { connect } from 'react-redux'
 import {  StyleSheet,
   TextInput,
   View,
@@ -14,7 +15,7 @@ import HomeContent from "./HomeContent";
 import HomeModel from "../Model/HomeModel";
 import Loader from '../Components/Loader';
 import SettingScreenContent from "./SettingScreenContent";
-export default class SettingScreen extends React.Component {
+class SettingScreen extends React.Component {
   constructor({ router, navigation, props }) {
     super(router, navigation, props)
     this.state = {
@@ -85,7 +86,11 @@ export default class SettingScreen extends React.Component {
             />
           </View>
           <KeyboardAvoidingView enabled>
-          <SettingScreenContent/>
+            {
+              _.map(this.props.homeData, (item, key) => {
+                return  <SettingScreenContent key = {key} data = {item}/>
+              })
+            }
             {this.state.errortext != '' ? (
               <Text style={styles.errorTextStyle}> {this.state.errortext} </Text>
             ) : null}
@@ -101,6 +106,18 @@ export default class SettingScreen extends React.Component {
     );
   };
 }
+
+const mapStateToProps = (state) => {
+  const { Home } = state
+  return {
+    homeData : Home.homeData
+  }
+}
+// const mapDispatchToProps = {
+//   getHomePageData
+// }
+
+export default connect(mapStateToProps, null)(SettingScreen)
 
 const styles = StyleSheet.create({
   SectionStyle: {

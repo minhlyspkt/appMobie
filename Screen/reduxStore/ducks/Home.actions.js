@@ -2,8 +2,16 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import HomeModel from "../../Model/HomeModel";
 export const updateState = createAction('Home/updateState')
 
+export const updateName = createAction('Home/updateName')
+
 export const getHomePageData = createAsyncThunk('Home/getHomePageData', async (payload) => { 
   let dataModel = await getHomeData()
+  return dataModel
+})
+
+export const submitUpdate = createAsyncThunk('Home/submitUpdate', async (payload) => { 
+  let dataModel = await HomeModel.UpdateNameStorage(payload)
+  console.log(dataModel)
   return dataModel
 })
 

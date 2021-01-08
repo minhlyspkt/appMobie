@@ -1,34 +1,18 @@
 
 import { _ } from 'lodash';
 import React from 'react';
+import { connect } from 'react-redux'
 import { StyleSheet, TextInput, View, KeyboardAvoidingView } from 'react-native';
-import HomeContent from "./HomeContent";
-import HomeModel from "../Model/HomeModel";
-import Loader from '../Components/Loader';
-export default class SettingScreenContent extends React.Component {
+import {updateName} from "../reduxStore/ducks/Home.actions";
+class SettingScreenContent extends React.Component {
   constructor({ router, navigation, props }) {
     super(router, navigation, props)
-    this.state = {
-      data: [],
-      isloading: false,
-      loading: false,
-      isRegistraionSuccess: false,
-      errortext: ""
-    }
-    this.getData = this.getData.bind(this)
-  }
-  componentDidMount() {
-    //this.getData()
   }
 
-  async getData() {
-    this.setState({ loading: true })
-    let dataModel = await HomeModel.GetDataHome("")
-    this.setState({ data: dataModel, isloading: true, loading: false })
-  }
-
-  handleSubmitButton() {
-
+  setDeviceName(name,item) {
+   let datachange = Object.assign({},item)
+   datachange.Name = name
+   this.props.updateName(datachange)
   }
 
   render() {
@@ -37,9 +21,9 @@ export default class SettingScreenContent extends React.Component {
         <View style={styles.SectionStyle}>
           <TextInput
             style={styles.inputStyle}
-            onChangeText={(UserName) => setUserName(UserName)}
+            onChangeText={(text) => this.setDeviceName(text,this.props.data)}
             underlineColorAndroid="#f000"
-            placeholder={this.props.data.Name}
+            value={this.props.data.Name}
             placeholderTextColor="#8b9cb5"
             autoCapitalize="sentences"
             returnKeyType="next"
@@ -53,7 +37,11 @@ export default class SettingScreenContent extends React.Component {
     );
   };
 }
+const mapDispatchToProps = {
+  updateName
+}
 
+export default connect(null, mapDispatchToProps)(SettingScreenContent)
 const styles = StyleSheet.create({
   SectionStyle: {
     flexDirection: 'row',

@@ -2,7 +2,7 @@ import { _ } from 'lodash';
 import AsyncStorage from '@react-native-community/async-storage';
 let HomeModel = {
     async GetDataHome(datat) {
-        let data = {"2":"0", "4":"0", "33":"0"}
+        let data = { "2": "0", "4": "0", "33": "0" }
         let result = []
         let storage = []
         let i = 1
@@ -12,7 +12,7 @@ let HomeModel = {
             keys[j - 1] = index
             j++
         })
-        await AsyncStorage.multiGet(keys,(err, stores) => {
+        await AsyncStorage.multiGet(keys, (err, stores) => {
             if (err) {
                 console.log("getAll key value fail !");
             } else {
@@ -46,9 +46,24 @@ let HomeModel = {
         })
         return result
     },
-    GeDataSetting() {
-        
-    }
+    async UpdateNameStorage(data) {
+        let storage = []
+        let result = false
+        _.forEach(data, (value, index) => {
+            storage[index] = [value.key, value.Name]
+        })
+
+        await AsyncStorage.multiSet(storage, (error) => {
+            if (error) {
+                result = false
+                console.log("saved device fail !");
+            } else {
+                result = true
+                console.log("saved device success!");
+            }
+        });
+        return result
+    },
 
 }
 export default HomeModel

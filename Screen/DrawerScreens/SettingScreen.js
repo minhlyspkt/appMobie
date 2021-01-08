@@ -15,35 +15,23 @@ import HomeContent from "./HomeContent";
 import HomeModel from "../Model/HomeModel";
 import Loader from '../Components/Loader';
 import SettingScreenContent from "./SettingScreenContent";
+import {submitUpdate} from "../reduxStore/ducks/Home.actions";
 class SettingScreen extends React.Component {
   constructor({ router, navigation, props }) {
     super(router, navigation, props)
     this.state = {
-      data: [],
-      isloading: false,
-      loading : false,
-      isRegistraionSuccess:false,
+      navigation:navigation,
       errortext:""
     }
-    this.getData = this.getData.bind(this)
-  }
-  componentDidMount() {
-    //this.getData()
-  }
-
-  async getData() {
-    this.setState({loading:true})
-    let dataModel = await HomeModel.GetDataHome("")
-    this.setState({ data: dataModel, isloading: true, loading: false })
+    this.handleSubmitButton = this.handleSubmitButton.bind(this)
   }
 
   handleSubmitButton(){
-
+    this.props.submitUpdate(this.props.homeData)
   }
 
   render() {
-    const emailInputRef = createRef();
-    if (this.state.isRegistraionSuccess) {
+    if (this.props.isRegistraionSuccess) {
       return (
         <View
           style={{
@@ -55,19 +43,19 @@ class SettingScreen extends React.Component {
             source={require('../../Image/success.png')}
             style={{height: 150, resizeMode: 'contain', alignSelf: 'center'}}
           />
-          <Text style={styles.successTextStyle}>Registration Successful.</Text>
+          <Text style={styles.successTextStyle}>Update Successful.</Text>
           <TouchableOpacity
             style={styles.buttonStyle}
             activeOpacity={0.5}
-            onPress={() => props.navigation.navigate('LoginScreen')}>
-            <Text style={styles.buttonTextStyle}>Login Now</Text>
+            onPress={() => this.state.navigation.navigate('HomeScreen')}>
+            <Text style={styles.buttonTextStyle}>Home Now</Text>
           </TouchableOpacity>
         </View>
       );
     }
     return (
       <View style={{flex: 1, backgroundColor: '#307ecc'}}>
-        <Loader loading={this.state.loading} />
+        <Loader loading={this.props.isLoading} />
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{
@@ -98,7 +86,7 @@ class SettingScreen extends React.Component {
               style={styles.buttonStyle}
               activeOpacity={0.5}
               onPress={this.handleSubmitButton}>
-              <Text style={styles.buttonTextStyle}>REGISTER</Text>
+              <Text style={styles.buttonTextStyle}>UPDATE</Text>
             </TouchableOpacity>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -110,14 +98,16 @@ class SettingScreen extends React.Component {
 const mapStateToProps = (state) => {
   const { Home } = state
   return {
+    isRegistraionSuccess : Home.isRegistraionSuccess,
+    isLoading : Home.isLoading,
     homeData : Home.homeData
   }
 }
-// const mapDispatchToProps = {
-//   getHomePageData
-// }
+const mapDispatchToProps = {
+  submitUpdate
+}
 
-export default connect(mapStateToProps, null)(SettingScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen)
 
 const styles = StyleSheet.create({
   SectionStyle: {

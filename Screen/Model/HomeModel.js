@@ -1,8 +1,8 @@
 import { _ } from 'lodash';
 import AsyncStorage from '@react-native-community/async-storage';
 let HomeModel = {
-    async GetDataHome(datat) {
-        let data = { "2": "0", "4": "0", "33": "0" }
+    async GetDataHome(data) {
+        //let data = { "2": "0", "4": "0", "33": "0" }
         let result = []
         let storage = []
         let i = 1

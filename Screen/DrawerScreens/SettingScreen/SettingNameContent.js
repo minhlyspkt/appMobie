@@ -3,8 +3,8 @@ import { _ } from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux'
 import { StyleSheet, TextInput, View, KeyboardAvoidingView } from 'react-native';
-import {updateName} from "../reduxStore/ducks/Home.actions";
-class SettingScreenContent extends React.Component {
+import {updateName} from "../../reduxStore/ducks/Home.actions";
+class SettingNameContent extends React.Component {
   constructor({ router, navigation, props }) {
     super(router, navigation, props)
   }
@@ -41,7 +41,7 @@ const mapDispatchToProps = {
   updateName
 }
 
-export default connect(null, mapDispatchToProps)(SettingScreenContent)
+export default connect(null, mapDispatchToProps)(SettingNameContent)
 const styles = StyleSheet.create({
   SectionStyle: {
     flexDirection: 'row',

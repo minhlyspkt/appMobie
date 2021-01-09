@@ -2,11 +2,10 @@ import { _ } from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux'
 import { StyleSheet, View, Image } from 'react-native';
-import lightOff from '../../Image/lightOff.jpg'
-import lightOn from '../../Image/lightOn.jpg'
+import lightOff from '../../../Image/lightOff.jpg'
+import lightOn from '../../../Image/lightOn.jpg'
 import ButtonConten from "./ButtonConten";
-import { updateState } from "../reduxStore/ducks/Home.actions";
-import HomeModel from "../Model/HomeModel";
+import { updateState } from "../../reduxStore/ducks/Home.actions";
 
 class HomeContent extends React.Component {
   constructor({ route, navigation, props }) {

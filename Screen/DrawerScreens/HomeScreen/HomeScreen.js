@@ -4,8 +4,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { StyleSheet, View, ScrollView } from 'react-native';
 import HomeContent from "./HomeContent";
-import Loader from '../Components/Loader';
-import {getHomePageData} from "../reduxStore/ducks/Home.actions";
+import Loader from '../../Components/Loader';
+import {getHomePageData} from "../../reduxStore/ducks/Home.actions";
 class HomeScreen extends React.Component {
   constructor({ router, navigation, props }) {
     super(router, navigation, props)

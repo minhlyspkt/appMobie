@@ -1,8 +1,8 @@
 import { _ } from 'lodash';
 import AsyncStorage from '@react-native-community/async-storage';
 let HomeModel = {
-    async GetDataHome(data) {
-        //let data = { "2": "0", "4": "0", "33": "0" }
+    async GetDataHome(datat) {
+        let data = { "2": "0", "4": "0", "33": "0" }
         let result = []
         let storage = []
         let i = 1
@@ -64,6 +64,42 @@ let HomeModel = {
         });
         return result
     },
-
+    async getConnectStorage() {
+        let responseData = null
+        await AsyncStorage.getItem('Connect',(error,result) => {
+            if (error) {
+                console.log('get key value fail !')
+            } else {
+                responseData = result
+            }
+        })
+        return responseData
+    },
+    async getPublicIPStorage() {
+        let responseData = null
+        await AsyncStorage.getItem('PublicIP',(error,result) => {
+            if (error) {
+                console.log('get key value fail !')
+            } else {
+                responseData = result
+            }
+        })
+        return responseData
+    },
+    async updatePublicIPStorage(ip) {
+        let responseData = false
+        let result = []
+        result[0] = ['PublicIP',ip]
+        await AsyncStorage.multiSet(result,(error) => {
+            if (error) {
+                console.log('update key value fail !')
+                responseData = false
+            } else {
+                console.log('update key value successfull !')
+                responseData = true
+            }
+        })
+        return responseData
+    },
 }
 export default HomeModel

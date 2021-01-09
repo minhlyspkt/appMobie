@@ -7,15 +7,33 @@ import React from 'react';
 // Import Navigators from React Navigation
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Import Screens
-import HomeScreen from './DrawerScreens/HomeScreen';
-import SettingsScreen from './DrawerScreens/SettingScreen';
+import HomeScreen from './DrawerScreens/HomeScreen/HomeScreen';
+import SettingName from './DrawerScreens/SettingScreen/SettingName';
+import SettingIP from './DrawerScreens/SettingScreen/SettingIP';
 import CustomSidebarMenu from './Components/CustomSidebarMenu';
 import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+
+function contentSettting() {
+  return (
+    <Tab.Navigator initialRouteName="SettingName"
+    tabBarOptions={{
+      activeTintColor: '#e91e63',
+      labelStyle: { fontSize: 18,alignItems: 'center', marginBottom: 10 },
+      style: { backgroundColor: 'powderblue' },
+    }}
+    >
+      <Tab.Screen name="SettingName" component={SettingName} />
+      <Tab.Screen name="SettingIP" component={SettingIP} />
+    </Tab.Navigator>
+  );
+}
 
 const homeScreenStack = ({route,navigation}) => {
   return (
@@ -60,7 +78,7 @@ const settingScreenStack = ({navigation}) => {
       }}>
       <Stack.Screen
         name="SettingsScreen"
-        component={SettingsScreen}
+        component={contentSettting}
         options={{
           title: 'Settings', //Set Header Title
         }}

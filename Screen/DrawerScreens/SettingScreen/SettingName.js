@@ -11,12 +11,10 @@ import {  StyleSheet,
   Keyboard,
   TouchableOpacity,
   ScrollView,} from 'react-native';
-import HomeContent from "./HomeContent";
-import HomeModel from "../Model/HomeModel";
-import Loader from '../Components/Loader';
-import SettingScreenContent from "./SettingScreenContent";
-import {submitUpdate} from "../reduxStore/ducks/Home.actions";
-class SettingScreen extends React.Component {
+import Loader from '../../Components/Loader';
+import SettingNameContent from "./SettingNameContent";
+import {submitUpdate} from "../../reduxStore/ducks/Home.actions";
+class SettingName extends React.Component {
   constructor({ router, navigation, props }) {
     super(router, navigation, props)
     this.state = {
@@ -40,7 +38,7 @@ class SettingScreen extends React.Component {
             justifyContent: 'center',
           }}>
           <Image
-            source={require('../../Image/success.png')}
+            source={require('../../../Image/success.png')}
             style={{height: 150, resizeMode: 'contain', alignSelf: 'center'}}
           />
           <Text style={styles.successTextStyle}>Update Successful.</Text>
@@ -64,7 +62,7 @@ class SettingScreen extends React.Component {
           }}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../../Image/aboutreact.png')}
+              source={require('../../../Image/aboutreact.png')}
               style={{
                 width: '50%',
                 height: 100,
@@ -76,7 +74,7 @@ class SettingScreen extends React.Component {
           <KeyboardAvoidingView enabled>
             {
               _.map(this.props.homeData, (item, key) => {
-                return  <SettingScreenContent key = {key} data = {item}/>
+                return  <SettingNameContent key = {key} data = {item}/>
               })
             }
             {this.state.errortext != '' ? (
@@ -107,7 +105,7 @@ const mapDispatchToProps = {
   submitUpdate
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SettingName)
 
 const styles = StyleSheet.create({
   SectionStyle: {

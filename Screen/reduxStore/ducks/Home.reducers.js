@@ -1,24 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { _ } from "lodash";
-import {getHomePageData, submitUpdate, updateState  } from "./Home.actions";
+import {getHomePageData, submitUpdate, updateState, getPublicIP, submitPublicIP  } from "./Home.actions";
 
 const HomeSlice = createSlice({
   name: 'Home',
   initialState: {
     homeData: [],
     isLoading: false,
-    isRegistraionSuccess: false
+    isRegistraionSuccess: false,
+    publicIP: null
   },
   reducers: {
-    // updateState: (state, action) => {
-    //   let dataHome = _.map(state.homeData,(value,index) => {
-    //     if(value.key === action.payload.GPIO){
-    //       value.Status = action.payload.Status
-    //       return value
-    //     } else return value
-    //   }) 
-    //   state.homeData = dataHome
-    // },
     updateName: (state, action) => {
       let dataHome = _.map(state.homeData,(value,index) => {
         if(value.key === action.payload.GPIO){
@@ -56,6 +48,16 @@ const HomeSlice = createSlice({
           } else return value
         }) 
         state.homeData = dataHome
+      }
+    },
+    [getPublicIP.fulfilled]: (state, action) => {
+      if (action != null) {
+        state.publicIP = action.payload
+      }
+    },
+    [submitPublicIP.fulfilled]: (state, action) => {
+      if (action != null) {
+        state.publicIP = action.payload
       }
     }
   }
